@@ -34,6 +34,7 @@ public class WaveChanger {
                         ResourceManger.loadAndSave(GameAssetsManager.gameAssetsManager.saveDataPath);
                     }
                 }
+
                 break;
             case 2:
                 if (MaosVengeance.killCount >= wave2KillNeeded || PlayerController.passWave){
