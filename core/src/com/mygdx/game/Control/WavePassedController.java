@@ -69,7 +69,11 @@ public class WavePassedController {
         nextWave.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                MaosVengeance.currentWave++;
+                int waveEnded = MaosVengeance.currentWave + 1;
+                if (MaosVengeance.user != null){
+                    ResourceManger.saveGameProgress(waveEnded);
+                }
+                MaosVengeance.currentWave = waveEnded;
                 game.getScreen().dispose();
                 game.setScreen(new GameScreen(game));
                 MaosVengeance.killCount = 0;

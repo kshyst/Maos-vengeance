@@ -57,10 +57,14 @@ public class WaveChanger {
                     buildingCount = 3;
                     wallCount = 15;
                     kaleGhanaCount = 20;
+                    canSpawnTank = false;
+                    canSpawnMig = false;
                     game.getScreen().dispose();
                     game.setScreen(new GameCompeleteScreen(game));
                     PlayerController.passWave = false;
                     if (MaosVengeance.user != null){
+                        MaosVengeance.currentWave = 0;
+                        MaosVengeance.user.setLastRound(1);
                         MaosVengeance.user.setScore(MaosVengeance.user.getScore() + MaosVengeance.killCount * 10 * MaosVengeance.hitCount);
                         ResourceManger.loadAndSave(GameAssetsManager.gameAssetsManager.saveDataPath);
                     }

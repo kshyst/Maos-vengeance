@@ -40,12 +40,12 @@ public class WaveFailedController {
         exitToMenu.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                int waveEnded = MaosVengeance.currentWave;
                 if (MaosVengeance.user != null){
-                    ResourceManger.saveGameProgress(waveEnded);
+                    MaosVengeance.user.setLastRound(1);
+                    ResourceManger.saveGameProgress(1);
                 }
                 else {
-                    MaosVengeance.currentWave = waveEnded;
+                    MaosVengeance.currentWave = 1;
                 }
                 game.getScreen().dispose();
                 game.setScreen(new MainMenu(game));
