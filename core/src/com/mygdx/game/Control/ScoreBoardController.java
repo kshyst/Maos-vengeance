@@ -103,7 +103,7 @@ public class ScoreBoardController {
         userScores.addAll(users);
         userScores.sort((o1, o2) -> o2.getLastRound() - o1.getLastRound());
         for (int i = 0; i < 10 && i < userScores.size(); i++){
-            Label name = new Label((i + 1) + "." + userScores.get(i).getUsername() + " : " + userScores.get(i).getLastRound() * userScores.get(i).getScore(), skin);
+            Label name = new Label((i + 1) + "." + userScores.get(i).getUsername() + " : " + userScores.get(i).getLastRound() * userScores.get(i).getScore() + " - " + userScores.get(i).getLastRound() , skin);
             switch (i){
                 case 0:
                     name.setColor(Color.GOLD);

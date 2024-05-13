@@ -15,6 +15,7 @@ public class PlayerController {
     private static final Player player = Player.player;
     private static final float speed = Player.player.speed;
     public static boolean passWave = false;
+    public static int controllerMode = 0;
 
     public static void controlPlayer(MaosVengeance game){
         handleInput(game);
@@ -29,21 +30,41 @@ public class PlayerController {
     }
 
     private static void handleInput(MaosVengeance game){
-        if(Gdx.input.isKeyPressed(Input.Keys.W)){
-            if (player.velocityY < 1 )
-                player.velocityY += 0.1f;
+        if (controllerMode == 0){
+            if(Gdx.input.isKeyPressed(Input.Keys.W)){
+                if (player.velocityY < 1 )
+                    player.velocityY += 0.1f;
+            }
+            if(Gdx.input.isKeyPressed(Input.Keys.S)){
+                if (player.velocityY > -1)
+                    player.velocityY -= 0.1f;
+            }
+            if(Gdx.input.isKeyPressed(Input.Keys.A)){
+                if (player.velocityX > -1)
+                    player.velocityX -= 0.1f;
+            }
+            if(Gdx.input.isKeyPressed(Input.Keys.D)){
+                if (player.velocityX < 1)
+                    player.velocityX += 0.1f;
+            }
         }
-        if(Gdx.input.isKeyPressed(Input.Keys.S)){
-            if (player.velocityY > -1)
-                player.velocityY -= 0.1f;
-        }
-        if(Gdx.input.isKeyPressed(Input.Keys.A)){
-            if (player.velocityX > -1)
-                player.velocityX -= 0.1f;
-        }
-        if(Gdx.input.isKeyPressed(Input.Keys.D)){
-            if (player.velocityX < 1)
-                player.velocityX += 0.1f;
+        else {
+            if(Gdx.input.isKeyPressed(Input.Keys.UP)){
+                if (player.velocityY < 1 )
+                    player.velocityY += 0.1f;
+            }
+            if(Gdx.input.isKeyPressed(Input.Keys.DOWN)){
+                if (player.velocityY > -1)
+                    player.velocityY -= 0.1f;
+            }
+            if(Gdx.input.isKeyPressed(Input.Keys.LEFT)){
+                if (player.velocityX > -1)
+                    player.velocityX -= 0.1f;
+            }
+            if(Gdx.input.isKeyPressed(Input.Keys.RIGHT)){
+                if (player.velocityX < 1)
+                    player.velocityX += 0.1f;
+            }
         }
     }
 

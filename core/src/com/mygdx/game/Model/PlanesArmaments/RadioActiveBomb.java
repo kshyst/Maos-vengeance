@@ -1,6 +1,7 @@
 package com.mygdx.game.Model.PlanesArmaments;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -14,9 +15,13 @@ import com.mygdx.game.Model.Opps.Opp;
 import com.mygdx.game.Model.Player;
 import com.mygdx.game.Model.WaveChanger;
 
+import java.util.SortedMap;
+
 public class RadioActiveBomb extends Armaments{
     public Texture texture = new Texture(GameAssetsManager.gameAssetsManager.largeMissleFrame1 );
     public Sprite sprite = new Sprite(texture);
+    private Sound sfx = Gdx.audio.newSound(Gdx.files.internal(GameAssetsManager.gameAssetsManager.radioActiveBombExplosion));
+    private boolean isSfxPlayed = false;
     public float time = 0;
     public RadioActiveBomb(float x, float y, float speed){
         this.x = x;
@@ -49,6 +54,10 @@ public class RadioActiveBomb extends Armaments{
     @Override
     public void destroy() {
         canMove = false;
+        if (!isSfxPlayed){
+            sfx.play();
+            isSfxPlayed = true;
+        }
         sprite.setRotation(0);
         sprite.setPosition(x - 1000, -500);
         sprite.setSize(2000 , 2000);

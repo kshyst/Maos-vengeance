@@ -1,6 +1,8 @@
 package com.mygdx.game.Model.PlanesArmaments;
 
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -13,10 +15,14 @@ import com.mygdx.game.Model.Opps.Opp;
 import com.mygdx.game.Model.Opps.Tank;
 import com.mygdx.game.Model.Player;
 
+import java.util.Random;
+
 public class PlaneBomb extends Armaments{
     public Texture texture = new Texture(GameAssetsManager.gameAssetsManager.smallMissleFrame1 );
     public Sprite sprite = new Sprite(texture);
+    public Sound sfx = Gdx.audio.newSound(Gdx.files.internal(GameAssetsManager.gameAssetsManager.normalExplosionSFX.get(new Random().nextInt(3))));
     public float time = 0;
+    private boolean isSfxPlayed = false;
     public float velocityXMultiplier = 1;
     public PlaneBomb(float x, float y, float speed , float velo){
         this.x = x;
@@ -53,6 +59,10 @@ public class PlaneBomb extends Armaments{
     @Override
     public void destroy() {
         canMove = false;
+        if (!isSfxPlayed){
+            sfx.play(1.0f);
+            isSfxPlayed = true;
+        }
         Animation<Texture> animation = GameAssetsManager.gameAssetsManager.explosionFrames;
         sprite.setRegion(animation.getKeyFrame(time));
         if (!animation.isAnimationFinished(time)) {

@@ -10,11 +10,20 @@ import java.util.ArrayList;
 public class GameAssetsManager {
     public static GameAssetsManager gameAssetsManager = new GameAssetsManager();
 
-    public String saveDataPath = "saveData.save";
+    public String saveDataPath = "core/src/com/mygdx/game/Model/SaveData/saveData.save";
     public String uiSkin = "skin/pixthulhu-ui.json";
     public String invisiblePic = "invisible-png.png";
     public String alert = "OppMissles/alert.png";
     public Animation<Texture> alertFrames = new Animation<Texture>(0.1f, new Texture(alert) , new Texture(invisiblePic));
+    public ArrayList<String> normalExplosionSFX = new ArrayList<String>(){
+        {
+            add("SFX/explosion01.wav");
+            add("SFX/explosion05.wav");
+            add("SFX/explosion09.wav");
+        }
+    };
+
+    public String radioActiveBombExplosion = "SFX/Chunky Explosion.mp3";
     //avatars
     public String defaultAvatar = "Avatars/avatar.png";
     public String avatar1 = "Avatars/avatar1.png";

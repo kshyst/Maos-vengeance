@@ -24,6 +24,7 @@ public class SettingMenuController {
     private TextButton difficultyButton2 = new TextButton("Medium", skin , "toggle");
     private TextButton difficultyButton3 = new TextButton("Hard", skin , "toggle");
     private TextButton muteButton = new TextButton("Mute", skin , "default");
+    private TextButton changeControls = new TextButton("Change Controls", skin , "default");
     private Label empty = new Label("", skin);
 
     public Table table = new Table();
@@ -50,6 +51,8 @@ public class SettingMenuController {
         table.add(empty).fillX().expandX().pad(0 , 800 , 0 , 800);
         table.row().pad(10, 0, 10, 0);
         table.add(muteButton).fillX().expandX().pad(0 , 800 , 0 , 800);
+        table.row().pad(10, 0, 10, 0);
+        table.add(changeControls).fillX().expandX().pad(0 , 800 , 0 , 800);
         table.row().pad(10, 0, 10, 0);
         table.add(backButton).fillX().expandX().pad(0 , 800 , 0 , 800);
 
@@ -155,10 +158,27 @@ public class SettingMenuController {
         });
     }
 
+    private void changeControls(MaosVengeance game){
+        changeControls.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                if (PlayerController.controllerMode == 1){
+                    PlayerController.controllerMode = 0;
+                }
+                else {
+                    PlayerController.controllerMode = 1;
+                }
+                game.getScreen().dispose();
+                game.setScreen(new SettingMenu(game));
+            }
+        });
+    }
+
     public void handleMainMenuButtons(MaosVengeance game){
         backButton(game);
         handleSettings();
         muteButton(game);
+        changeControls(game);
     }
 
 }
