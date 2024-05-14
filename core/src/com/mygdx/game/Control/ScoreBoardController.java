@@ -32,7 +32,8 @@ public class ScoreBoardController {
     public ScoreBoardController() {
         try{
             users = (ArrayList<User>) ResourceManger.load(GameAssetsManager.gameAssetsManager.saveDataPath);
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             e.printStackTrace();
         }
         table.setFillParent(true);

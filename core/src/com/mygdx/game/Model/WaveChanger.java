@@ -54,16 +54,16 @@ public class WaveChanger {
                 break;
             case 3:
                 if (MaosVengeance.killCount >= wave3KillNeeded || PlayerController.passWave){
-                    buildingCount = 3;
-                    wallCount = 15;
-                    kaleGhanaCount = 20;
+                    buildingCount = 1;
+                    wallCount = 7;
+                    kaleGhanaCount = 10;
                     canSpawnTank = false;
                     canSpawnMig = false;
                     game.getScreen().dispose();
                     game.setScreen(new GameCompeleteScreen(game));
                     PlayerController.passWave = false;
+                    MaosVengeance.currentWave = 0;
                     if (MaosVengeance.user != null){
-                        MaosVengeance.currentWave = 0;
                         MaosVengeance.user.setLastRound(1);
                         MaosVengeance.user.setScore(MaosVengeance.user.getScore() + MaosVengeance.killCount * 10 * MaosVengeance.hitCount);
                         ResourceManger.loadAndSave(GameAssetsManager.gameAssetsManager.saveDataPath);
