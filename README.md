@@ -25,3 +25,11 @@
 <div>
   You have to control this fighter jet and destroy the building which filthy capitalist live. then destroy their tanks and their migs.
 </div>
+<h1>
+</h1>
+<h3>
+  Attention!
+</h3>
+<div>
+  this game's theme is a joke don't take it seriously.
+</div>
