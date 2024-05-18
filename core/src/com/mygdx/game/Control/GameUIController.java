@@ -20,12 +20,14 @@ public class GameUIController {
     public Label radioActiveBombCount = new Label("RadioActive: 0" , skin , "title");
     public Label clusterBombCount = new Label("Cluster: 0" , skin , "title");
     public Label playerHealth = new Label("HP: 100" , skin , "title");
+    public ProgressBar freezeProgressBar = new ProgressBar(0 , 3 , 1 , false , skin);
     public Window pauseWindow = new Window("Paused", skin);
     public TextButton exitToMainMenu = new TextButton("Exit Without Save", skin);
     public TextButton exitToMainMenuSave = new TextButton("Save And Exit", skin);
     public TextButton stopMusic = new TextButton("Stop Music", skin);
     public Label controls = new Label("WASD or UpDownRightLeft Arrow to move, Space to shoot, R radioactive, C cluster", skin, "default");
     private final Slider chooseFromSongs = new Slider(0, 2, 1, false, skin);
+    private int killCountOfPlayer = 0;
     private GameUIController() {
         table.setFillParent(true);
         table.center();
@@ -41,6 +43,8 @@ public class GameUIController {
         table.addActor(playerHealth);
         playerHealth.setPosition((float) Gdx.graphics.getWidth() - playerHealth.getText().length * 40 , (float) Gdx.graphics.getHeight() - playerHealth.getHeight() - 60);
         playerHealth.setColor(Color.GREEN);
+        table.addActor(freezeProgressBar);
+        freezeProgressBar.setPosition((float) Gdx.graphics.getWidth() / 2 - freezeProgressBar.getWidth() / 2, (float) Gdx.graphics.getHeight() - freezeProgressBar.getHeight() - 10);
 
         table.addActor(pauseWindow);
         pauseWindow.setSize(1500, 700);
@@ -79,6 +83,19 @@ public class GameUIController {
         radioActiveBombCount.setText("RadioActive: " + MaosVengeance.radioActiveBombCount);
     }
 
+    private void handleFreezeBar(){
+        if (MaosVengeance.killCount > killCountOfPlayer){
+            killCountOfPlayer = MaosVengeance.killCount;
+            freezeProgressBar.setValue(freezeProgressBar.getValue() + 1);
+            if (freezeProgressBar.getValue() == 3){
+                freezeProgressBar.setValue(0);
+                MaosVengeance.canFreeze = true;
+            }
+            freezeProgressBar.setColor(Color.GREEN);
+        }
+        else
+            freezeProgressBar.setColor(Color.RED);
+    }
     private void handleClusterBombCount(){
         clusterBombCount.setText("Cluster: " + MaosVengeance.clusterBombCount);
     }
@@ -182,6 +199,8 @@ public class GameUIController {
         musicHandler(game);
         musicChanger();
         handlePlayerHealth();
+        handleFreezeBar();
+
     }
 
 }

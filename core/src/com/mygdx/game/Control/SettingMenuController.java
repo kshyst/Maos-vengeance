@@ -1,18 +1,14 @@
 package com.mygdx.game.Control;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.mygdx.game.MaosVengeance;
 import com.mygdx.game.Model.GameAssetsManager;
-import com.mygdx.game.Model.SaveData.Regex;
 import com.mygdx.game.Model.SaveData.ResourceManger;
-import com.mygdx.game.Model.SaveData.User;
 import com.mygdx.game.View.*;
-
-import java.util.ArrayList;
-import java.util.regex.Pattern;
 
 public class SettingMenuController {
     public static SettingMenuController settingMenuController = new SettingMenuController();
@@ -25,12 +21,19 @@ public class SettingMenuController {
     private TextButton difficultyButton3 = new TextButton("Hard", skin , "toggle");
     private TextButton muteButton = new TextButton("Mute", skin , "default");
     private TextButton changeControls = new TextButton("Change Controls", skin , "default");
+    private CheckBox grayScaleCheckBox = new CheckBox("GrayScale", skin);
     private Label empty = new Label("", skin);
 
     public Table table = new Table();
 
+    private ShaderProgram grayscaleShader;
+
 
     private SettingMenuController() {
+        grayscaleShader = new ShaderProgram(Gdx.files.internal("vertex.glsl"), Gdx.files.internal("grayscale.glsl"));
+        if (!grayscaleShader.isCompiled()) {
+            Gdx.app.error("Shader", "Compilation failed:\n" + grayscaleShader.getLog());
+        }
         table.setFillParent(true);
         table.center();
 
@@ -53,6 +56,8 @@ public class SettingMenuController {
         table.add(muteButton).fillX().expandX().pad(0 , 800 , 0 , 800);
         table.row().pad(10, 0, 10, 0);
         table.add(changeControls).fillX().expandX().pad(0 , 800 , 0 , 800);
+        table.row().pad(10, 0, 10, 0);
+        table.add(grayScaleCheckBox).fillX().expandX().pad(0 , 800 , 0 , 800);
         table.row().pad(10, 0, 10, 0);
         table.add(backButton).fillX().expandX().pad(0 , 800 , 0 , 800);
 
@@ -157,7 +162,14 @@ public class SettingMenuController {
             }
         });
     }
-
+    public void handleGrayScaleCheckBox(){
+        grayScaleCheckBox.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                MaosVengeance.grayScale = !MaosVengeance.grayScale;
+            }
+        });
+    }
     private void changeControls(MaosVengeance game){
         changeControls.addListener(new ClickListener(){
             @Override
@@ -179,6 +191,13 @@ public class SettingMenuController {
         handleSettings();
         muteButton(game);
         changeControls(game);
+        handleGrayScaleCheckBox();
+        
+        if (MaosVengeance.grayScale) {
+            game.batch.setShader(grayscaleShader);
+        } else {
+            game.batch.setShader(null);
+        }
     }
 
 }

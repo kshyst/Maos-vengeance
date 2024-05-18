@@ -150,8 +150,12 @@ public class PlayerController {
         if (Gdx.input.isKeyJustPressed(Input.Keys.P)) {
             passWave = true;
         }
-        if (Gdx.input.isKeyJustPressed(Input.Keys.TAB)){
+        if (Gdx.input.isKeyJustPressed(Input.Keys.TAB) && MaosVengeance.canFreeze){
+            if (MaosVengeance.isGameFreezed){
+                MaosVengeance.canFreeze = false;
+            }
             MaosVengeance.isGameFreezed = !MaosVengeance.isGameFreezed;
+
         }
         if (Gdx.input.isKeyJustPressed(Input.Keys.G)){
             MaosVengeance.radioActiveBombCount ++;

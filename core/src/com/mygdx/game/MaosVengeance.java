@@ -28,6 +28,8 @@ public class MaosVengeance extends Game  {
 	public static int hitCount = 0;
 	public static int firedCount = 0;
 	public static int radioActiveBombCount = 0;
+	public static boolean canFreeze = false;
+	public static boolean grayScale;
 
 	public SpriteBatch batch;
 	public static Music music;
